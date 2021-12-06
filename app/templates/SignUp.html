@@ -1,0 +1,54 @@
+<!-- Inherits from base template (PageView) -->
+{% extends "PageView.html" %}
+  {% block content %}
+    <h1 style="padding:20px;">Sign Up</h1>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-4"></div>
+          <div class="col-3">
+            <!-- If there are any flash messages, display them with Bootstrap -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  {% if category == 'error' %}
+                    <div class="alert alert-danger">
+                      {{ message }}
+                    </div>
+                  {% else %}
+                    <div class="alert alert-success">
+                      {{ message }}
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+          </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <form action="" method="post" name="newLoginForm">
+        <!-- Form doesn't show if CSRP prevention hasn't passed -->
+        {{ form.hidden_tag() }}
+        <div style="padding:20px;">
+        <p>Username</p>
+        {{ form.username }}
+        <!-- Alert the user of any errors in the form using Bootstrap-->
+        {% for error in form.username.errors %}
+        <div class="alert alert-danger" role="alert">
+          [{{ error }}]
+        </div>
+        {% endfor %}
+        </div>
+        <div style="padding:20px;">
+        <p>Password</p>
+        {{ form.password }}
+        {% for error in form.password.errors %}
+        <div class="alert alert-danger" role="alert">
+          [{{ error }}]
+        </div>
+        {% endfor %}
+        </div>
+        <p style="padding:20px;"><input type="submit" class="btn btn-primary" value="Sign Up"></p>
+      </form>
+    </div>
+  {% endblock %}

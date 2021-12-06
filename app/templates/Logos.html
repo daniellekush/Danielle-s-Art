@@ -1,0 +1,110 @@
+<!-- Inherits from base template (PageView) -->
+{% extends "PageView.html" %}
+  {% block content %}
+    {% if title %}
+	<h1 style="text-align: center;">{{ title }}</h1>
+    {% else %}
+	<h1 style="text-align: center;">Logos</h1>
+    {% endif %}
+      <!-- Only show images if there are images to display -->
+      {% if images %}
+          <style>
+              .slide-container {
+                  position: relative;
+                  margin: auto;
+              }
+              .slide-container img {
+                  width: 500px;
+                  height: 500px;
+                  border-radius: 25px;
+                  border: 2px solid black;
+              }
+              .slide {
+                  display: none;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 27%;
+              }
+              .nav .prev {
+                  position: absolute;
+                  z-index: 10;
+                  top: 40%;
+                  left: 30%;
+                  font-size: 40px;
+              }
+              .nav .next {
+                  right: 30%;
+                  position: absolute;
+                  font-size: 40px;
+                  z-index: 10;
+                  top: 40%;
+              }
+              .nav .nav-btn {
+                  background-color: white;
+                  cursor: pointer;
+                  border-radius: 50%;
+                  border: 1px solid black;
+                  width: 60px;
+                  height: 60px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  padding: 5px;
+              }
+              .nav .nav-btn:hover {
+                  background-color: gray;
+              }
+          </style>
+
+          <!-- For some reason images refused to be displayed by file/locally so I had to upload the files online -->
+          <div class="slide-container">
+              <div style="display: block;" class="slide">
+                  <img src="https://i.ibb.co/Xpb1dSC/OR.png" alt="OR Logo"/>
+              </div>
+              <div class="slide">
+                  <img src="https://i.ibb.co/Sr9Vhzz/MCRealm.jpg" alt="MCRealm Logo"/>
+              </div>
+              <div class="slide">
+                  <img src="https://i.ibb.co/fC8sWdn/Discharge-Network.png" alt="Discharge Network Logo"/>
+              </div>
+              <div class="slide">
+                  <img src="https://i.ibb.co/R3Vnjy0/stolendale.png" alt="Stolendale Logo"/>
+              </div>
+              
+              <div class="nav">
+                  <a class="prev nav-btn" onclick="nextImage('next')"><</a>
+                  <a class="next nav-btn" onclick="nextImage('prev')">></a>
+              </div>
+          </div>
+
+          <script>
+              var index = 0;
+    
+              function nextImage(direction) {
+                  var images = $(".slide");
+                  var total = images.length;
+
+                  if (direction == 'next') {
+                      index++;
+                      if (index == total) {
+                          index = 0;
+                      }
+                  }
+                  else {
+                      if (index == 0) {
+                          index = total - 1;
+                      }
+                      else {
+                          index--;
+                      }
+                  }
+                  for (var i = 0; i < images.length; i++) {
+                      images[i].style.display = "none";
+                  }
+                  images[index].style.display = "block";
+              }
+          </script>
+      {% else %}
+        <p>No images to display.</p>
+      {% endif %}
+  {% endblock %}

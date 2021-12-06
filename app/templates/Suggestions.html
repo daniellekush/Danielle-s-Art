@@ -1,0 +1,86 @@
+<!-- Inherits from base template (PageView) -->
+{% extends "PageView.html" %}
+  {% block content %}
+    <h1>Suggest a Feature</h1>
+    
+    <style>
+        .sub {
+            font-size: 12px;
+            font-style: italic;
+        }
+    </style>
+    
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-4"></div>
+          <div class="col-3">
+            <!-- If there are any flash messages, display them with Bootstrap -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  {% if category == 'error' %}
+                    <div class="alert alert-danger">
+                      {{ message }}
+                    </div>
+                  {% else %}
+                    <div class="alert alert-success">
+                      {{ message }}
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+          </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <form action="" method="post" name="newSuggestionForm">
+        <!-- Form doesn't show if CSRP prevention hasn't passed -->
+        {{ form.hidden_tag() }}
+        <p>Title</p>
+        {{ form.title }}
+        <p class="sub">This should be the name of your suggestion</p>
+        <!-- Alert the user of any errors in the form using Bootstrap-->
+        {% for error in form.title.errors %}
+        <div class="alert alert-danger" role="alert">
+          [{{ error }}]
+        </div>
+        {% endfor %}
+
+        <p>Suggestion type</p>
+        {{ form.sType }}
+        <p class="sub">Which part of the website is affected</p>
+        {% for error in form.sType.errors %}
+        <div class="alert alert-danger" role="alert">
+          [{{ error }}]
+        </div>
+        {% endfor %}
+
+        <p>Description</p>
+        {{ form.desc }}
+        <p class="sub">Describe your suggestion</p>
+        {% for error in form.desc.errors %}
+        <div class="alert alert-danger" role="alert">
+          [{{ error }}]
+        </div>
+        {% endfor %}
+        <p><input type="submit" class="btn btn-primary" value="Create"></p>
+      </form>
+    </div>
+
+    <div class="container-fluid">
+      <h1>Suggestions</h1>
+      {% if suggestions %}
+        {% for suggestion in suggestions %}
+        <div class="container p-3 my-3 bg-dark text-white">
+          <h3>{{ suggestion.title }}</h3>
+          <p style="font-weight:bold;">{{ suggestion.sType }}</p>
+          <p>{{ suggestion.desc }}</p>
+        </div>
+        {% endfor %}
+      {% else %}
+        <p>No suggestions to display.</p>
+      {% endif %}
+    </div>
+    
+  {% endblock %}

@@ -1,0 +1,25 @@
+<!-- Inherits from base template (PageView) -->
+{% extends "PageView.html" %}
+  {% block content %}
+    {% if title %}
+	<h1 style="text-align: center;">{{ title }}</h1>
+    {% else %}
+	<h1 style="text-align: center;">Home</h1>
+    {% endif %}
+    <!-- container storing content regarding the about section -->
+    <div class="container-fluid">
+	<h2>About</h2>
+	<p>Welcome to Danielle's Art website! I hope you enjoy your stay. Here are some instructions to help you get started. You can navigate between pages using the navigation bar above. The Home page brings you back here.</p>
+	</br>
+	<p>Some of the pages on the website are split by categories. Each category of artwork has descriptions on 		the page itself to explain the content that is being shown. An example for DC, the character's name and 	description of who they are will be included.</p>
+        <p>The Home and Suggestions pages are exceptions to this. Home brings you back here and Suggestions lets
+	registered users suggest new drawings and categories.</p>
+    </div>
+    <!-- Only show the disclaimer if it has been enabled on the site -->
+    {% if disclaimer %}
+    <div style="background: white; border: 1px solid black; position: fixed; bottom: 0; left: 0; width: 100%; text-align: center;">
+        <p>All artwork and graphics used and displayed on this website has been created by Danielle Kushnir,
+           therefore she holds copyright to these creations.</p>
+    </div>
+    {% endif %}
+  {% endblock %}

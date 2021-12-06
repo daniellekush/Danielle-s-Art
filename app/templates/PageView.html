@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=n">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+                <script type="text/javascript" src="{{ url_for('static', filename='ajax_js.js') }}" ></script>
+		<!-- CSS style standard for all pages -->
+		<style>
+			body {
+				background-color: #FFFAF0;
+			}
+			li {
+				float: left;
+				margin: 5px;
+			}
+			li:last-child {
+				border-right: none;
+			}
+			li a {
+				color: #F0FFFF;
+				display: block;
+				text-align: center;
+			}
+			li a:hover {
+				background-color: #000000;
+			}
+			ul {
+				width: 100%;
+				background-color: #050505;
+				list-style-type: none;
+				margin: 0px;
+				padding: 15px;
+				overflow: hidden;
+			}
+			h1 {
+				margin: 20px;
+			}
+		</style>
+		<!-- Sets a default title of the page if no specific one was set -->
+		<title>Danielle's Art</title>
+	</head>
+	<body>
+		<!-- Website's navigation bar -->
+		<div>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/dc">DC</a></li>
+				<li><a href="/logos">Logos</a></li>
+				<li><a href="/suggestions">Suggestions</a></li>
+                                <li><a href="/account">Account</a></li>
+			</ul>
+		</div>
+		<!-- Area for variable content -->
+		<div class="container-fluid">
+			{% block content %}{% endblock %}
+		</div>
+    
+            <!-- jQuery first then Bootstrap JS -->
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	</body>
+</html>

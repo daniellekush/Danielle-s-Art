@@ -1,0 +1,110 @@
+<!-- Inherits from base template (PageView) -->
+{% extends "PageView.html" %}
+  {% block content %}
+    {% if title %}
+	<h1 style="text-align: center;">{{ title }}</h1>
+    {% else %}
+	<h1 style="text-align: center;">DC</h1>
+    {% endif %}
+      <!-- Only show images if there are images to display -->
+      {% if images %}
+          <style>
+              .slide-container {
+                  position: relative;
+                  margin: auto;
+              }
+              .slide-container img {
+                  width: 500px;
+                  height: 500px;
+                  border-radius: 25px;
+                  border: 2px solid black;
+              }
+              .slide {
+                  display: none;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 27%;
+              }
+              .nav .prev {
+                  position: absolute;
+                  z-index: 10;
+                  top: 40%;
+                  left: 30%;
+                  font-size: 40px;
+              }
+              .nav .next {
+                  right: 30%;
+                  position: absolute;
+                  font-size: 40px;
+                  z-index: 10;
+                  top: 40%;
+              }
+              .nav .nav-btn {
+                  background-color: white;
+                  cursor: pointer;
+                  border-radius: 50%;
+                  border: 1px solid black;
+                  width: 60px;
+                  height: 60px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  padding: 5px;
+              }
+              .nav .nav-btn:hover {
+                  background-color: gray;
+              }
+          </style>
+
+          <!-- For some reason images refused to be displayed by file/locally so I had to upload the files online -->
+          <div class="slide-container">
+              <div style="display: block;" class="slide">
+                  <img src="https://i.ibb.co/B6rh0K4/BWLStitch.jpg" alt="The Batman Who Laughs Stitch"/>
+                  <div class="text">This drawing is a combination of the characters The Batman Who Laughs and Stitch. The Batman Who Laughs is an evil version of Bruce Wayne/Batman who also became the Joker in Bruce's nightmare universe.</div>
+              </div>
+              <div class="slide">
+                  <img src="https://i.ibb.co/qJqzvJ0/Flash-Stitch.jpg" alt="The Flash Stitch"/>
+                  <div class="text">This drawing is a combination of the characters The Flash (Barry Allen) and Stitch. Barry is a forensic scientist who is also secretly the <em>fastest man alive</em> (though his villains are always faster than him).</div>
+              </div>
+              <div class="slide">
+                  <img src="https://i.ibb.co/HHPNKQS/Shazam-Stitch.jpg" alt="Shazam Stitch"/>
+                  <div class="text">This drawing is a combination of the characters Shazam and Stitch. Billy Batson gained the powers to shapeshift into a superhero, in a form which is an adult version of himself. Shazam Stitch's pose is from Shazam! 2019.</div>
+              </div>
+              
+              <div class="nav">
+                  <a class="prev nav-btn" onclick="nextImage('next')"><</a>
+                  <a class="next nav-btn" onclick="nextImage('prev')">></a>
+              </div>
+          </div>
+
+          <script>
+              var index = 0;
+    
+              function nextImage(direction) {
+                  var images = $(".slide");
+                  var total = images.length;
+
+                  if (direction == 'next') {
+                      index++;
+                      if (index == total) {
+                          index = 0;
+                      }
+                  }
+                  else {
+                      if (index == 0) {
+                          index = total - 1;
+                      }
+                      else {
+                          index--;
+                      }
+                  }
+                  for (var i = 0; i < images.length; i++) {
+                      images[i].style.display = "none";
+                  }
+                  images[index].style.display = "block";
+              }
+          </script>
+      {% else %}
+        <p>No images to display.</p>
+      {% endif %}
+  {% endblock %}
