@@ -21,7 +21,7 @@ class Suggestion(db.Model):
 class User(UserMixin, db.Model):
     __tablename__ = "User"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(64), unique=True)
+    username = db.Column(db.String(64), unique=True)
     password = db.Column(db.String(128))
     users = db.relation(
          'User', secondary=PageSuggestion,

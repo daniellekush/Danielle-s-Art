@@ -31,15 +31,15 @@ def signup():
         app.logger.debug("Entered SignUp page")
         if form.validate_on_submit():
                 app.logger.debug("Logged username: %s Logged password: %s", form.username.data, form.password.data)
-                exists = models.User.query.filter_by(name=form.username.data).first()
+                exists = models.User.query.filter_by(username=form.username.data).first()
                 if exists:
                         flash('This username already exists.', 'error')
                 else:
-                        user = models.User(name=form.username.data, password=generate_password_hash(form.password.data, method='sha256'))
+                        user = models.User(username=form.username.data, password=generate_password_hash(form.password.data, method='sha256'))
                         db.session.add(user)
                         db.session.commit()
                         app.logger.info("%s signed up", form.username.data)
-                        return redirect(url_for('home'))
+                        return redirect(url_for('login'))
         return render_template('Login.html', form=form, title='Sign Up')
 
 #Path to the Login page
@@ -48,7 +48,7 @@ def login():
         form = newLoginForm()
         app.logger.debug("Entered Login page")
         if form.validate_on_submit():
-                user = models.User.query.filter_by(name=form.username.data).first()
+                user = models.User.query.filter_by(username=form.username.data).first()
                 app.logger.debug("Attempted login - username: %s password: %s", form.username.data, form.password.data)
                 if not user:
                       app.logger.warning("Login attempt for non-existing user %s", form.username.data)
@@ -69,12 +69,12 @@ def account():
         app.logger.debug("Entered Account page")
         form = newLoginForm()
         if form.validate_on_submit():
-                if (form.username.data == current_user.name):
-                        user = models.User.query.filter_by(name=current_user.name).first()
+                if (form.username.data == current_user.username):
+                        user = models.User.query.filter_by(username=current_user.username).first()
                         password = generate_password_hash(form.password.data, method='sha256')
                         user.password = password
                         db.session.commit()
-                        app.logger.info("%s changed their password", current_user.name)
+                        app.logger.info("%s changed their password", current_user.username)
                         flash('You have successfully changed your password!')
                 else:
                         app.logger.debug("Attempt at changing password without verifying username correctly")
@@ -84,7 +84,7 @@ def account():
 @app.route('/logout')
 @login_required
 def logout():
-        app.logger.info("%s logged out", current_user.name)
+        app.logger.info("%s logged out", current_user.username)
         logout_user()
         return redirect(url_for('home'))
 
